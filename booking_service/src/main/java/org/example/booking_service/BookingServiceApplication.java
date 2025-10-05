@@ -11,9 +11,9 @@ public class BookingServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(BookingServiceApplication.class, args);
     }
+
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
-
 }
