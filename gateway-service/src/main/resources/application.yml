@@ -32,9 +32,9 @@ spring:
               filters:
                 - StripPrefix=1
 
-            - id: service1
+            - id: vehicle
               uri: http://localhost:5051
               predicates:
-                - Path=/service1/api/v1/vehicle/**
+                - Path=/vehicle/**
               filters:
                 - StripPrefix=1
