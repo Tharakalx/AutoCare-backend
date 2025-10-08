@@ -27,6 +27,7 @@ public class BookingService {
         return modelMapper.map(savedBooking, BookingDto.class);
     }
 
+
     public BookingDto updateBooking(BookingDto bookingDto) {
         Optional<Booking> existingBooking = bookingRepo.findById(bookingDto.getBookingId());
         if (existingBooking.isPresent()) {

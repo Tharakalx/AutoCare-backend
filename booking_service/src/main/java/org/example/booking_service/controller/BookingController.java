@@ -9,17 +9,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+
 @RequestMapping("/api/v1")
 public class BookingController {
     @Autowired
     private BookingService bookingService;
 
     @PostMapping("/bookings")
-    public ResponseEntity<BookingDto> createBooking(@RequestBody BookingDto bookingDto) {
+    public ResponseEntity<BookingDto> createBooking(@RequestBody BookingDto bookingDto , @RequestHeader("X-User-Id") String userId) {
+        bookingDto.setUserId(Integer.parseInt(userId));
         BookingDto createdBooking = bookingService.createBooking(bookingDto);
         return ResponseEntity.ok(createdBooking);
     }
+
+
 
     @PutMapping("/bookings/{id}")
     public ResponseEntity<BookingDto> updateBooking(@PathVariable int id, @RequestBody BookingDto bookingDto) {
