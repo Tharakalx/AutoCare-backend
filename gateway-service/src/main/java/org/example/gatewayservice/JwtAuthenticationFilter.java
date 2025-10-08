@@ -31,7 +31,7 @@ public class JwtAuthenticationFilter implements GlobalFilter, Ordered {
         System.out.println("Incoming path: " + path);
 
         // Skip JWT check for Auth service
-        if (path.startsWith("/auth/")) {
+        if (path.equals("/auth/login") || path.equals("/auth/register")) {
             return chain.filter(exchange);
         }
 
