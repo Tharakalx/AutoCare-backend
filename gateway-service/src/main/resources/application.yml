@@ -38,3 +38,9 @@ spring:
                 - Path=/vehicle/**
               filters:
                 - StripPrefix=1
+            - id: booking
+              uri: http://localhost:5052
+              predicates:
+                - Path=/booking/**
+              filters:
+                - StripPrefix=1

@@ -1,4 +1,6 @@
-FROM ubuntu:latest
-LABEL authors="USER"
-
-ENTRYPOINT ["top", "-b"]
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY target/vehicle-service-0.0.1-SNAPSHOT.jar app.jar
+EXPOSE 5050
+ENTRYPOINT ["java", "-jar", "app.jar"]
+op", "-b"]
