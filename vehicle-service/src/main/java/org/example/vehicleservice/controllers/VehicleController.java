@@ -25,6 +25,17 @@ public class VehicleController {
         VehicleDto updatedVehicle = vehicleService.UpdateVehicle(vehicleDto);
         return ResponseEntity.ok(updatedVehicle);
     }
+    @DeleteMapping("vehicle/{id}")
+    public ResponseEntity<String> deleteVehicleById(@PathVariable Integer id) {
+        return ResponseEntity.ok(vehicleService.deleteVehicleById(id));
+    }
+
+    @GetMapping("/getvehicles")
+    public ResponseEntity<List<VehicleDto>> getVehicles(@RequestHeader("X-User-Id") Integer userId) {
+        System.out.println("UserId from gateway: " + userId);
+        return ResponseEntity.ok(vehicleService.findVehiclesByUserId(userId));
+    }
+
 //    @GetMapping("vehicle")
 //    public ResponseEntity<List<VehicleDto>> getAllVehicles(@RequestHeader("X-User-Id") String userId ) {
 //
@@ -34,16 +45,6 @@ public class VehicleController {
 //    public ResponseEntity<VehicleDto> getVehicleById(@RequestParam Integer id) {
 //        return ResponseEntity.ok(vehicleService.findVehicleById(id));
 //    }
-    @DeleteMapping("vehicle/{id}")
-    public ResponseEntity<String> deleteVehicleById(@PathVariable Integer id) {
-        return ResponseEntity.ok(vehicleService.deleteVehicleById(id));
-    }
-    @GetMapping("/getvehicles")
-    public ResponseEntity<List<VehicleDto>> getVehicles(@RequestHeader("X-User-Id") Integer userId) {
-        System.out.println("UserId from gateway: " + userId);
-        return ResponseEntity.ok(vehicleService.findVehiclesByUserId(userId));
-    }
-
 
 
 

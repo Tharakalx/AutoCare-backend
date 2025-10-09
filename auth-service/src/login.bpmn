@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1lkumxp" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.37.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.7.0">
+  <bpmn:process id="login_process" name="Verify Login" isExecutable="true">
+    <bpmn:extensionElements />
+    <bpmn:task id="Gateway_LoginDecision" name="Verify Login">
+      <bpmn:extensionElements>
+        <zeebe:executionListeners>
+          <zeebe:executionListener eventType="start" type="verify-login" />
+        </zeebe:executionListeners>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1vd7tok</bpmn:incoming>
+      <bpmn:outgoing>Flow_0y9j7bj</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1vd7tok" sourceRef="StartEvent_1" targetRef="Gateway_LoginDecision" />
+    <bpmn:startEvent id="StartEvent_1" name="Start Login">
+      <bpmn:outgoing>Flow_1vd7tok</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="Gateway_1qwpg56" name="Decision">
+      <bpmn:incoming>Flow_0y9j7bj</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ckk5h9</bpmn:outgoing>
+      <bpmn:outgoing>Flow_17gjyvm</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0y9j7bj" sourceRef="Gateway_LoginDecision" targetRef="Gateway_1qwpg56" />
+    <bpmn:endEvent id="Event_0zosy3u" name="Login Success">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="=loginStatus == &#34;success&#34;&#10;" target="loginStatus" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1ckk5h9</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1ckk5h9" sourceRef="Gateway_1qwpg56" targetRef="Event_0zosy3u" />
+    <bpmn:endEvent id="Event_11m3x8k" name="Login Failed">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="=loginStatus == &#34;failed&#34;" target="loginStatus" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_17gjyvm</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_17gjyvm" sourceRef="Gateway_1qwpg56" targetRef="Event_11m3x8k" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="login_process">
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="162" y="112" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="154" y="155" width="54" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0vsbfcz_di" bpmnElement="Gateway_LoginDecision">
+        <dc:Bounds x="250" y="90" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1qwpg56_di" bpmnElement="Gateway_1qwpg56" isMarkerVisible="true">
+        <dc:Bounds x="405" y="105" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="408" y="81" width="43" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0zosy3u_di" bpmnElement="Event_0zosy3u">
+        <dc:Bounds x="512" y="112" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="494" y="155" width="72" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_11m3x8k_di" bpmnElement="Event_11m3x8k">
+        <dc:Bounds x="512" y="222" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="500" y="265" width="61" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1vd7tok_di" bpmnElement="Flow_1vd7tok">
+        <di:waypoint x="198" y="130" />
+        <di:waypoint x="250" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0y9j7bj_di" bpmnElement="Flow_0y9j7bj">
+        <di:waypoint x="350" y="130" />
+        <di:waypoint x="405" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ckk5h9_di" bpmnElement="Flow_1ckk5h9">
+        <di:waypoint x="455" y="130" />
+        <di:waypoint x="512" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17gjyvm_di" bpmnElement="Flow_17gjyvm">
+        <di:waypoint x="430" y="155" />
+        <di:waypoint x="430" y="240" />
+        <di:waypoint x="512" y="240" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
